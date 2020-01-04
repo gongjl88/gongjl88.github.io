@@ -16,7 +16,7 @@
     <meta name="description" content="" />
     
     <title>
-      VUE - 龚俊龙-Blog
+      JS闭包理解 - 龚俊龙-Blog
     </title>
     <link rel="manifest" href="/manifest.json" />
     <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
@@ -25,6 +25,11 @@
 
   <meta name="generator" content="Hexo 4.1.0"></head>
   <body>
+    
+    <div id="post-toc" class="animated hiddenToc hide">
+      <span class="title">Toc</span>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-变量的作用域"><span class="toc-text">1.变量的作用域</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-闭包的概念"><span class="toc-text">2.闭包的概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-闭包的用途"><span class="toc-text">3.闭包的用途</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-使用闭包的注意点"><span class="toc-text">4.使用闭包的注意点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-Javascript的垃圾回收机制"><span class="toc-text">5.Javascript的垃圾回收机制</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#闭包面试"><span class="toc-text">闭包面试</span></a>
+    </div>
     
     <div id="fixed-menu-wrap">
       <span class="iconfont icon-sousuo search-box menu-reset"></span>
@@ -165,23 +170,82 @@
         <article class="post-entry">
     <div class="header">
       
-      <div class="title">VUE</div>
+        <div class="top">
+          <div class="iconfont icon-zuirehotxiankuang animated infinite heartBeat"></div>
+        </div>
+      
+      <div class="title">JS闭包理解</div>
       <div class="meta">
         <span class="item">
           <span class="iconfont icon-time-circle"></span>
-          <span>2019/12/13</span>
+          <span>2019/12/19</span>
         </span>
 
         
 
+         
+        <span class="item">
+          <span class="iconfont icon-folder"></span>
+          <span>
+              
+                
+                  <a href="/categories/Notes">Notes</a>
+                
+              
+          </span>
+        </span>
         
         
-        
+         
+          <span class="item">
+            <span class="iconfont icon-tag1"></span>
+            <span>
+                
+                  
+                    <a href="/tags/JS">JS</a>
+                  
+                
+            </span>
+          </span>
+         
       </div>
       <div>
       </div>
     </div>
-    <p>VUE</p>
+    <p><em>对Js中闭包的理解</em></p>
+<h2 id="1-变量的作用域">1.变量的作用域<a class="post-anchor" href="#1-变量的作用域"></a></h2><p>要理解闭包，首先必须理解Javascript特殊的变量作用域。<br>变量的作用域无非就是两种：全局变量和局部变量。<br>Javascript语言的特殊之处，就在于函数内部可以直接读取全局变量<br>另一方面，在函数外部自然无法读取函数内的局部变量<br>这里有一个地方需要注意，函数内部声明变量的时候，一定要使用var命令。如果不用的话，你实际上声明了一个全局变量！<br>子对象会一级一级地向上寻找所有父对象的变量。所以，父对象的所有变量，对子对象都是可见的，反之则不成立<br>这就是Javascript语言特有的“链式作用域”结构（chain scope）</p>
+<h2 id="2-闭包的概念">2.闭包的概念<a class="post-anchor" href="#2-闭包的概念"></a></h2><p>官方”的解释是：闭包是一个拥有许多变量和绑定了这些变量的环境的表达式（通常是一个函数），因而这些变量也是该表达式的一部分<br>闭包就是能够读取其他函数内部变量的函数。<br>由于在Javascript语言中，只有函数内部的子函数才能读取局部变量，因此可以把闭包简单理解成“定义在一个函数内部的函数”。<br>在本质上，闭包就是将函数内部和函数外部连接起来的一座桥梁。</p>
+<h2 id="3-闭包的用途">3.闭包的用途<a class="post-anchor" href="#3-闭包的用途"></a></h2><p>它的最大用处有两个，一个是前面提到的可以读取函数内部的变量，另一个就是让这些变量的值始终保持在内存中。</p>
+<h2 id="4-使用闭包的注意点">4.使用闭包的注意点<a class="post-anchor" href="#4-使用闭包的注意点"></a></h2><p>闭包会使得函数中的变量都被保存在内存中，内存消耗很大，所以不能滥用闭包，否则会造成网页的性能问题，在IE中可能导致内存泄露。解决方法是，在退出函数之前，将不使用的局部变量全部删除</p>
+<p>闭包会在父函数外部，改变父函数内部变量的值。所以，如果你把父函数当作对象（object）使用，把闭包当作它的公用方法（Public Method），把内部变量当作它的私有属性（private value），这时一定要小心，不要随便改变父函数内部变量的值</p>
+<h2 id="5-Javascript的垃圾回收机制">5.Javascript的垃圾回收机制<a class="post-anchor" href="#5-Javascript的垃圾回收机制"></a></h2><p>在Javascript中，如果一个对象不再被引用，那么这个对象就会被GC回收。如果两个对象互相引用，而不再被第3者所引用，那么这两个互相引用的对象也会被回收。</p>
+<h1 id="闭包面试">闭包面试<a class="post-anchor" href="#闭包面试"></a></h1><ul>
+<li><p>面试一句话回答：<br><font style="color:red">闭包就是能够读取函数内部变量的内层函数，是“定义在一个函数内部的函数”。</font><br><font style="color:red">因为js的链式作用域，内层函数能访问外层函数的变量，但外层函数不能直接访问内层函数的变量。</font><br><font style="color:red">如果想从外部读取函数的局部变量，这时候就需要用闭包。</font>  </p>
+</li>
+<li><p><font style="color:red">问：为什么会出现闭包？</font><br><font style="color:red">答：外层函数不能访问内层函数的变量（js的链式作用域：子对象会一级一级地向上寻找所有父对象的变量，反之不可）。</font></p>
+</li>
+<li><p><font style="color:red">问：什么时候用闭包？</font><br><font style="color:red">答：想从外部读取函数的局部变量，这时候就需要用闭包。</font></p>
+</li>
+<li><p>闭包概念：<br>闭包就是能够读取函数内部变量的内层函数，可以把闭包简单理解成”定义在一个函数内部的函数”。</p>
+</li>
+<li><p>问：内层函数为什么能访问外层函数的变量？<br>答：是因为Javascript语言特有的”链式作用域”结构（chain scope），子对象会一级一级地向上寻找所有父对象的变量。</p>
+</li>
+<li><p>问：如何从外部读取函数的局部变量呢？<br>答：在函数的内部，再定义一个函数，然后返回这个函数。</p>
+</li>
+<li><p>闭包的用处有两个：</p>
+</li>
+</ul>
+<ol>
+<li>可以读取函数内部的变量</li>
+<li>让这些变量的值始终保持在内存中</li>
+</ol>
+<ul>
+<li>使用闭包的注意点：</li>
+</ul>
+<ol>
+<li>由于闭包会使得函数中的变量都被保存在内存中，内存消耗很大，所以不能滥用闭包，否则会造成网页的性能问题，在IE中可能导致内存泄露。解决方法是，在退出函数之前，将不使用的局部变量全部删除。</li>
+<li>闭包会在父函数外部，改变父函数内部变量的值。所以，如果你把父函数当作对象（object）使用，把闭包当作它的公用方法（Public Method），把内部变量当作它的私有属性（private value），这时一定要小心，不要随便改变父函数内部变量的值。</li>
+</ol>
 
 
   
@@ -203,8 +267,12 @@
   <div class="post-guide">
     <div class="item left">
         
+          <a href="/2019/12/27/JS%E9%97%AD%E5%8C%85%EF%BC%8C%E4%BD%9C%E7%94%A8%E5%9F%9F%EF%BC%8Cthis/">闭包用法</a>
+        
     </div>
     <div class="item right">
+        
+          <a href="/2019/12/17/Markdown%E8%AF%AD%E6%B3%95/">Markdown语法</a>
         
     </div>
   </div>
@@ -216,7 +284,7 @@
       本文作者：<a href="http://blog.loveapple.top">龚俊龙</a>
     </div>
     <div class="link">
-      永久链接：<a href="http://blog.loveapple.top/Content/ES6/index.html">http://blog.loveapple.top/Content/ES6/index.html</a>
+      永久链接：<a href="http://blog.loveapple.top/2019/12/19/JS%E9%97%AD%E5%8C%85%E7%9F%A5%E8%AF%86/">http://blog.loveapple.top/2019/12/19/JS%E9%97%AD%E5%8C%85%E7%9F%A5%E8%AF%86/</a>
     </div>
     <div class="declare">
       版权声明：本文首发于<a href="http://blog.loveapple.top">龚俊龙</a>的博客，转载请注明出处！

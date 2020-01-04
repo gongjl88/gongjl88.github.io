@@ -1,2 +1,1 @@
-# gongjl88.github.io
-龚俊龙博客
+- <span style="color:orangered;font-weight:bold;">[终于等到你，龚俊龙个人博客](https://blog.loveapple.top/)</span>

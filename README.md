@@ -1,1 +1,1 @@
-- <span style="color:orangered;font-weight:bold;">[终于等到你，龚俊龙个人博客](https://blog.loveapple.top/)</span>
+- <span style="color:orangered;font-weight:bold;">终于等到你</span>[博客地址](https://blog.loveapple.top/)
